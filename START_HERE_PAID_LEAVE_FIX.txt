@@ -1,0 +1,67 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║   🏖️  FIX: PAID LEAVE NOT SHOWING IN MY SCHEDULE TAB          ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+PROBLEM:
+--------
+Approved paid leave requests don't appear in the employee's 
+"My Schedule" tab.
+
+
+SOLUTION (2 STEPS):
+-------------------
+
+STEP 1: Open Supabase SQL Editor
+   1. Go to https://supabase.com/dashboard
+   2. Select your project
+   3. Click "SQL Editor" in sidebar
+   4. Click "New query"
+
+STEP 2: Run the Fix
+   1. Open file: QUICK_FIX_PAID_LEAVE_SCHEDULE.sql
+   2. Copy ENTIRE file contents
+   3. Paste into Supabase SQL Editor
+   4. Click "Run" (or press Ctrl+Enter)
+   5. Wait for "✅ PAID LEAVE SCHEDULE FIX COMPLETE!" message
+
+
+VERIFY IT WORKED:
+-----------------
+   1. Go to Employee Portal
+   2. Log in as employee with approved leave
+   3. Click "My Schedule" tab
+   4. Look for:
+      ✓ Purple "🏖️ PAID LEAVE" badges
+      ✓ "Paid Leave" summary card with count
+      ✓ Purple cards showing each leave date
+
+
+WHAT IF IT DOESN'T WORK?:
+--------------------------
+   • Clear browser cache (Ctrl+Shift+R)
+   • Click "🐛 Debug" button in My Schedule
+   • Check browser console (F12) for errors
+   • Read: HOW_TO_FIX_PAID_LEAVE_DISPLAY.md
+
+
+FILES IN THIS FIX:
+------------------
+   ⭐ QUICK_FIX_PAID_LEAVE_SCHEDULE.sql  ← RUN THIS ONE!
+   📖 HOW_TO_FIX_PAID_LEAVE_DISPLAY.md   (detailed guide)
+   📖 FIX_PAID_LEAVE_SCHEDULE_DISPLAY.md (technical docs)
+   📄 CREATE_LEAVE_APPROVAL_FUNCTION.sql (detailed version)
+   📄 VERIFY_SCHEDULES_TABLE.sql         (verification only)
+
+
+THAT'S IT!
+----------
+After running the SQL file, paid leave will automatically show up
+in the employee's "My Schedule" tab with beautiful purple badges
+and detailed leave information.
+
+
+═══════════════════════════════════════════════════════════════════
+Questions? Check HOW_TO_FIX_PAID_LEAVE_DISPLAY.md for troubleshooting
+═══════════════════════════════════════════════════════════════════

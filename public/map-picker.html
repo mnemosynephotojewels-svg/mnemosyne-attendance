@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Picker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+            background: #aad3df;
+        }
+        .instruction-overlay {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(11, 48, 96, 0.95);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 1000;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .instruction-icon {
+            font-size: 18px;
+        }
+        .leaflet-container {
+            background: #aad3df;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="instruction-overlay">
+        <span class="instruction-icon">📍</span>
+        <span>Click anywhere on the map to set your geofence location</span>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let marker = null;
+        let radiusCircle = null;
+        let currentRadius = 100;
+        
+        // Custom marker icon (red pin)
+        const customIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Initialize map immediately
+        map = L.map('map', {
+            zoomControl: true,
+            attributionControl: true,
+            preferCanvas: true // Use canvas for better performance
+        }).setView([14.5995, 120.9842], 13);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap',
+            maxZoom: 19,
+            minZoom: 2
+        }).addTo(map);
+
+        // Notify parent immediately
+        window.parent.postMessage({ type: 'MAP_READY' }, '*');
+
+        // Function to add/update marker and circle
+        function setLocation(lat, lng, radius = currentRadius) {
+            // Remove existing marker and circle
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            if (radiusCircle) {
+                map.removeLayer(radiusCircle);
+            }
+
+            // Add new marker
+            marker = L.marker([lat, lng], { icon: customIcon }).addTo(map);
+            marker.bindPopup(`<b>Selected Location</b><br>Lat: ${lat.toFixed(6)}<br>Lng: ${lng.toFixed(6)}`).openPopup();
+
+            // Add radius circle
+            currentRadius = radius;
+            radiusCircle = L.circle([lat, lng], {
+                radius: radius,
+                color: '#22c55e',
+                fillColor: '#22c55e',
+                fillOpacity: 0.2,
+                weight: 2
+            }).addTo(map);
+
+            // Center map on location
+            map.setView([lat, lng], map.getZoom());
+
+            // Send location to parent window
+            window.parent.postMessage({
+                type: 'LOCATION_SELECTED',
+                latitude: lat,
+                longitude: lng
+            }, '*');
+        }
+
+        // Handle map clicks
+        map.on('click', function(e) {
+            setLocation(e.latlng.lat, e.latlng.lng);
+        });
+
+        // Listen for messages from parent window
+        window.addEventListener('message', function(event) {
+            if (event.data.type === 'SET_LOCATION') {
+                const { latitude, longitude, radius } = event.data;
+                if (latitude !== 0 || longitude !== 0) {
+                    setLocation(latitude, longitude, radius || currentRadius);
+                }
+            } else if (event.data.type === 'UPDATE_RADIUS') {
+                const { radius } = event.data;
+                if (radiusCircle && marker) {
+                    const center = marker.getLatLng();
+                    map.removeLayer(radiusCircle);
+                    currentRadius = radius;
+                    radiusCircle = L.circle([center.lat, center.lng], {
+                        radius: radius,
+                        color: '#22c55e',
+                        fillColor: '#22c55e',
+                        fillOpacity: 0.2,
+                        weight: 2
+                    }).addTo(map);
+                }
+            } else if (event.data.type === 'CENTER_MAP') {
+                const { latitude, longitude, zoom } = event.data;
+                map.setView([latitude, longitude], zoom || map.getZoom());
+            }
+        });
+
+        // Force invalidate size after brief moment to ensure proper rendering
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                map.invalidateSize();
+            });
+        });
+    </script>
+</body>
+</html>

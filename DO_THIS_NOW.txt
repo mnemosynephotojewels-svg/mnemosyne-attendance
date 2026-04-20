@@ -1,0 +1,24 @@
+═══════════════════════════════════════════════════════════════════
+                    COPY-PASTE THESE EXACT STEPS
+═══════════════════════════════════════════════════════════════════
+
+1. Click: https://supabase.com/dashboard/project/aoctrfafybrkzupfjbwj/sql/new
+
+2. Copy this SQL:
+
+ALTER TABLE leave_requests DROP COLUMN IF EXISTS user_type CASCADE;
+ALTER TABLE leave_requests ADD COLUMN user_type TEXT;
+
+3. Paste in SQL editor, click "Run"
+
+4. Click: https://supabase.com/dashboard/project/aoctrfafybrkzupfjbwj/settings/api
+
+5. Scroll down, click "Reload schema cache", wait 10 seconds
+
+6. In your app, press Ctrl+Shift+Delete, clear cache, click Clear
+
+7. Press Ctrl+Shift+R, submit leave request
+
+Done.
+
+═══════════════════════════════════════════════════════════════════

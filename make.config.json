@@ -1,0 +1,18 @@
+{
+  "name": "Mnemosyne QR Attendance System",
+  "version": "1.0.0",
+  "supabase": {
+    "functions": {
+      "deploy": false,
+      "enabled": false
+    }
+  },
+  "build": {
+    "ignore": [
+      "supabase/**",
+      "*.md",
+      "*.sql",
+      "*.txt"
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+════════════════════════════════════════════════════════════════════════
+  FIXED CODE READY FOR DEPLOYMENT
+════════════════════════════════════════════════════════════════════════
+
+✅ The leave request bug has been FIXED in this file:
+   /workspaces/default/code/supabase/functions/make-server/index.tsx
+
+NOW YOU MUST DEPLOY IT TO SUPABASE:
+
+════════════════════════════════════════════════════════════════════════
+  EASIEST METHOD: Copy-Paste in Dashboard (2 minutes)
+════════════════════════════════════════════════════════════════════════
+
+STEP 1: Open the Supabase dashboard
+   → Click: https://supabase.com/dashboard/project/aoctrfafybrkzupfjbwj/functions
+
+STEP 2: Click on the function
+   → Function name: make-server-df988758
+
+STEP 3: Open the fixed code file
+   → File: /workspaces/default/code/supabase/functions/make-server/index.tsx
+   → Select ALL text: Ctrl+A or Cmd+A
+   → Copy: Ctrl+C or Cmd+C
+
+STEP 4: Replace code in Supabase dashboard
+   → In the dashboard editor, select all: Ctrl+A
+   → Paste the new code: Ctrl+V
+   → Click "Deploy" button (green/blue button)
+   → Wait 10-30 seconds for deployment
+
+STEP 5: Reload schema cache
+   → Open: https://supabase.com/dashboard/project/aoctrfafybrkzupfjbwj/settings/api
+   → Find "Reload schema cache" button
+   → Click it
+
+STEP 6: Clear browser cache and test
+   → Press Ctrl+Shift+Delete (clear cache)
+   → Press Ctrl+Shift+R (hard refresh)
+   → Submit a leave request
+   → YOU SHOULD SEE: "Leave request submitted successfully!" ✅
+
+════════════════════════════════════════════════════════════════════════
+  OR USE CLI METHOD (if you prefer terminal)
+════════════════════════════════════════════════════════════════════════
+
+Run this script:
+   bash /workspaces/default/code/AUTO_DEPLOY.sh
+
+It will guide you through the deployment process.
+
+════════════════════════════════════════════════════════════════════════
+
+THE BUG IS FIXED - IT JUST NEEDS TO BE UPLOADED TO SUPABASE!
+
+What was fixed: Removed the "user_type" column insert that was causing the error.
+Where: Line 1517-1522 in the index.tsx file.
+
+════════════════════════════════════════════════════════════════════════

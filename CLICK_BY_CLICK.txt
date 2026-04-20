@@ -1,0 +1,59 @@
+╔════════════════════════════════════════════════════════════════╗
+║                    FIX THE ERROR IN 3 CLICKS                   ║
+╚════════════════════════════════════════════════════════════════╝
+
+ERROR YOU'RE SEEING:
+  ❌❌❌ NO EMPLOYEE NUMBERS EXTRACTED! ❌❌❌
+
+CAUSE:
+  Your schedules table is empty because database structure is wrong.
+
+FIX:
+  Run SQL to fix database structure (only you can do this).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLICK 1: Open Supabase
+  
+  → Open browser
+  → Go to: https://supabase.com/dashboard
+  → Click: Your project
+  → Click: "SQL Editor" (left sidebar)
+  → Click: "New query" button
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLICK 2: Copy & Run SQL
+
+  → Open file: FIX_SCHEDULES_RUN_NOW.sql (in same folder as this file)
+  → Select ALL text (Ctrl+A)
+  → Copy (Ctrl+C)
+  → Go back to Supabase SQL Editor
+  → Paste in the editor (Ctrl+V)
+  → Click: RUN button (green, top right)
+  → Wait for "Success" ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLICK 3: Test
+
+  → Go to your app
+  → Press Ctrl+Shift+R (refresh)
+  → Go to Manage Schedule page
+  → Click any employee's cell
+  → Select "Working Shift"
+  → Enter: 08:00 - 17:00
+  → Click "Save Schedule"
+  → Press Ctrl+Shift+R (refresh again)
+  → Check: Schedule STILL shows "08:00 - 17:00"?
+
+  YES = ✅ FIXED!
+  NO  = ❌ SQL wasn't run correctly, try again
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+THAT'S IT. 3 CLICKS. 3 MINUTES.
+
+After Step 2, the error will NEVER appear again.
+
+DO IT NOW.

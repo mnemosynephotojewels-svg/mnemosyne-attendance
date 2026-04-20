@@ -1,0 +1,43 @@
+// ============================================
+// COPY EVERYTHING BELOW AND PASTE IN CONSOLE
+// ============================================
+// How to use:
+// 1. Open your app in browser
+// 2. Press F12 to open DevTools
+// 3. Click "Console" tab
+// 4. Copy EVERYTHING below this line
+// 5. Paste in console
+// 6. Press Enter
+// 7. Wait for page to refresh automatically
+// ============================================
+
+console.log('🧹 Clearing all old schedule data...');
+
+fetch('https://ozklfhqnvkkfbtqdgvhy.supabase.co/functions/v1/make-server-df988758/schedules/clear-all', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im96a2xmaHFudmtrZmJ0cWRndmh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUxNTU0OTksImV4cCI6MjA2MDczMTQ5OX0.zBYfEIv7cQOxEShf82RPm0RY71RCPUtaKwfmvuiGrp0',
+    'Content-Type': 'application/json'
+  }
+})
+.then(r => r.json())
+.then(d => {
+  console.log('✅ KV store cleared successfully!');
+  console.log('   Result:', d);
+  console.log('🔄 Refreshing page in 2 seconds...');
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000);
+})
+.catch(e => {
+  console.error('❌ Error:', e);
+  console.log('⚠️  If this failed, manually refresh with Ctrl+Shift+R');
+});
+
+// ============================================
+// After page refreshes:
+// 1. Go to Manage Schedule
+// 2. Save a test schedule (08:00 - 17:00)
+// 3. Refresh page again (Ctrl+Shift+R)
+// 4. Schedule should STILL be there ✅
+// ============================================
